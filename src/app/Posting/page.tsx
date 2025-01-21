@@ -1,7 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
+
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+
 
 interface FormData {
   jobTitle: string;
