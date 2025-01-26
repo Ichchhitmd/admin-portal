@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Select } from 'antd';
+import { Select } from "antd";
 import QuillField from "../components/quillField";
 
 interface FormData {
@@ -75,14 +75,16 @@ const JobPostingForm = () => {
   };
 
   return (
-    <div className="h-full overflow-y-auto px-4 md:px-6 lg:px-10">
+    <div className="h-full overflow-y-auto px-4 md:px-6 lg:px-10 mt-4">
       <div className="w-full bg-white p-5 rounded-md">
-        <h2 className="text-xl mb-6 text-[#DEAD00] font-semibold">Job Posting</h2>
+        <h2 className="text-xl mb-6 text-[#DEAD00] font-semibold">
+          Job Posting
+        </h2>
         <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="col-span-2">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-5">
+            <div className="">
               <label className="text-xs font-medium mb-2 block leading-5">
-                Job Title
+                Job Title <span className="text-red-500 ">*</span>
               </label>
               <input
                 type="text"
@@ -90,78 +92,85 @@ const JobPostingForm = () => {
                 placeholder="Job Title"
                 value={formData.jobTitle}
                 onChange={handleChange}
+                required
                 className="w-full px-3 border h-12 rounded-lg bg-white"
               />
             </div>
-            <div className="col-span-1">
+            <div className="">
               <label className="text-xs font-medium mb-2 block leading-5">
-                Industry
+                Industry <span className="text-red-500 ">*</span>
               </label>
               <Select
                 value={formData.industry}
-                onChange={(value) => handleSelectChange('industry', value)}
+                onChange={(value) => handleSelectChange("industry", value)}
                 placeholder="--Select--"
                 className="w-full h-12"
                 options={[
-                  { value: 'IT', label: 'IT' },
-                  { value: 'Healthcare', label: 'Healthcare' }
+                  { value: "IT", label: "IT" },
+                  { value: "Healthcare", label: "Healthcare" },
                 ]}
+                aria-required
               />
             </div>
-            <div className="col-span-1">
+            <div className="">
               <label className="text-xs font-medium mb-2 block leading-5">
-                Job Level
+                Job Level <span className="text-red-500 ">*</span>
               </label>
               <Select
                 value={formData.jobLevel}
-                onChange={(value) => handleSelectChange('jobLevel', value)}
+                onChange={(value) => handleSelectChange("jobLevel", value)}
                 placeholder="--Select--"
                 className="w-full h-12"
                 options={[
-                  { value: 'Entry', label: 'Entry' },
-                  { value: 'Mid', label: 'Mid' },
-                  { value: 'Senior', label: 'Senior' }
+                  { value: "Entry", label: "Entry" },
+                  { value: "Mid", label: "Mid" },
+                  { value: "Senior", label: "Senior" },
                 ]}
+                aria-required
+              />
+            </div>
+            <div className="">
+              <label className="text-xs font-medium mb-2 block leading-5">
+                Employment Type <span className="text-red-500">*</span>
+              </label>
+              <Select
+                value={formData.employmentType}
+                onChange={(value) =>
+                  handleSelectChange("employmentType", value)
+                }
+                placeholder="--Select--"
+                className="w-full h-12"
+                options={[
+                  { value: "Full-time", label: "Full-time" },
+                  { value: "Part-time", label: "Part-time" },
+                  { value: "Contract", label: "Contract" },
+                ]}
+                aria-required
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="col-span-1">
+          <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="col-span-2">
               <label className="text-xs font-medium mb-2 block leading-5">
-                Employment Type
-              </label>
-              <Select
-                value={formData.employmentType}
-                onChange={(value) => handleSelectChange('employmentType', value)}
-                placeholder="--Select--"
-                className="w-full h-12"
-                options={[
-                  { value: 'Full-time', label: 'Full-time' },
-                  { value: 'Part-time', label: 'Part-time' },
-                  { value: 'Contract', label: 'Contract' }
-                ]}
-              />
-            </div>
-            <div className="col-span-1">
-              <label className="text-xs font-medium mb-2 block leading-5">
-                Location Type
+                Location Type <span className="text-red-500">*</span>
               </label>
               <Select
                 value={formData.locationType}
-                onChange={(value) => handleSelectChange('locationType', value)}
+                onChange={(value) => handleSelectChange("locationType", value)}
                 placeholder="--Select--"
                 className="w-full h-12"
                 options={[
-                  { value: 'Onsite', label: 'Onsite' },
-                  { value: 'Remote', label: 'Remote' },
-                  { value: 'Hybrid', label: 'Hybrid' }
+                  { value: "Onsite", label: "Onsite" },
+                  { value: "Remote", label: "Remote" },
+                  { value: "Hybrid", label: "Hybrid" },
                 ]}
+                aria-required
               />
             </div>
             <div className="col-span-1">
               <label className="text-xs font-medium mb-2 block leading-5">
-                Minimum Salary
+                Salary <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
@@ -169,6 +178,7 @@ const JobPostingForm = () => {
                 placeholder="Minimum"
                 value={formData.salaryMin}
                 onChange={handleChange}
+                required
                 className="w-full h-12 px-3 border rounded-lg bg-white"
               />
               <div className="flex items-center gap-2 mt-2">
@@ -183,54 +193,40 @@ const JobPostingForm = () => {
               </div>
             </div>
             <div className="col-span-1">
-              <label className="text-xs font-medium mb-2 block leading-5">
-                Maximum Salary
-              </label>
               <input
                 type="number"
                 name="salaryMax"
                 placeholder="Maximum"
+                required
                 value={formData.salaryMax}
                 onChange={handleChange}
-                className="w-full h-12 px-3 border rounded-lg bg-white"
+                className="w-full h-12 px-3 border rounded-lg bg-white mt-7"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="col-span-1">
+          <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="col-span-2">
               <label className="text-xs font-medium mb-2 block leading-5">
-                Experience
+                Number of Hiring <span className="text-red-500">*</span>
               </label>
               <Select
-                value={formData.experience}
-                onChange={(value) => handleSelectChange('experience', value)}
+                value={formData.numberOfHiring}
+                onChange={(value) =>
+                  handleSelectChange("numberOfHiring", value)
+                }
                 placeholder="--Select--"
                 className="w-full h-12"
-                options={[
-                  { value: '0-1', label: '0-1 years' },
-                  { value: '1-3', label: '1-3 years' },
-                  { value: '3-5', label: '3-5 years' },
-                  { value: '5+', label: '5+ years' }
-                ]}
+                options={Array.from({ length: 30 }, (_, i) => ({
+                  value: (i + 1).toString(),
+                  label: (i + 1).toString(),
+                }))}
+                aria-required
               />
             </div>
             <div className="col-span-1">
               <label className="text-xs font-medium mb-2 block leading-5">
-                Number of Hiring
-              </label>
-              <input
-                type="number"
-                name="numberOfHiring"
-                placeholder="Number of Hiring"
-                value={formData.numberOfHiring}
-                onChange={handleChange}
-                className="w-full h-12 px-3 border rounded-lg bg-white"
-              />
-            </div>
-            <div className="col-span-1">
-              <label className="text-xs font-medium mb-2 block leading-5">
-                Deadline
+                Hiring Urgency
               </label>
               <input
                 type="date"
@@ -246,13 +242,13 @@ const JobPostingForm = () => {
               </label>
               <Select
                 value={formData.hiringUrgency}
-                onChange={(value) => handleSelectChange('hiringUrgency', value)}
+                onChange={(value) => handleSelectChange("hiringUrgency", value)}
                 placeholder="--Select--"
                 className="w-full h-12"
                 options={[
-                  { value: 'Low', label: 'Low' },
-                  { value: 'Medium', label: 'Medium' },
-                  { value: 'High', label: 'High' }
+                  { value: "Low", label: "Low" },
+                  { value: "Medium", label: "Medium" },
+                  { value: "High", label: "High" },
                 ]}
               />
             </div>
@@ -272,33 +268,21 @@ const JobPostingForm = () => {
               name="qualifications"
               value={formData.qualifications}
               onChange={handleQuillChange}
-              label="Qualifications"
+              label="Job Requirements"
               placeholder="Qualifications/Requirements"
-              required
-            />
-
-            <QuillField
-              name="responsibility"
-              value={formData.responsibility}
-              onChange={handleQuillChange}
-              label="Responsibilities"
-              placeholder="Responsibilities"
               required
             />
           </div>
 
           <div className="flex gap-5 mt-5 flex-col sm:flex-row">
-            <button type="submit" className="bg-teal-500 text-white px-8 py-2 w-full sm:w-auto">
+            <button
+              type="submit"
+              className="bg-[#0295A9] text-white px-8 py-2 w-full"
+            >
               Post
             </button>
-            <button
-              type="button"
-              className="border border-teal-500 text-teal-500 px-8 py-2 w-full sm:w-auto"
-            >
-              Save as draft
-            </button>
           </div>
-          <div className="text-xs mt-5 font-normal flex justify-center items-center">
+          <div className="text-xs mt-2 font-normal flex justify-center items-center">
             Need help? Reach out anytime at
             <span className="ml-1">
               <a
@@ -309,6 +293,7 @@ const JobPostingForm = () => {
               </a>
             </span>
           </div>
+          
         </form>
       </div>
     </div>
