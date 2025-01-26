@@ -80,7 +80,7 @@ const JobPostingForm = () => {
         <h2 className="text-xl mb-6 text-[#DEAD00] font-semibold">Job Posting</h2>
         <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="col-span-1">
+            <div className="col-span-2">
               <label className="text-xs font-medium mb-2 block leading-5">
                 Job Title
               </label>
