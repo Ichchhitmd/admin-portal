@@ -36,168 +36,167 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-64 h-full bg-white border-r border-gray-200 p-4 flex flex-col sticky top-0">
+    <aside className="h-full bg-white border-r border-gray-200 flex flex-col overflow-y-auto scrollbar-visible w-16 md:w-64 p-2 md:p-4">
       <button
-        className="w-full bg-[#0295A9] text-white rounded-md py-2 px-4 flex items-center justify-center mb-6"
-        onClick={() => {
-          router.push("/Posting");
-        }}
+        className="w-full bg-[#0295A9] text-white rounded-md py-2 px-2 md:px-4 flex items-center justify-center mb-8"
+        onClick={() => router.push("/Posting")}
       >
-        <span className="mr-2">+</span> Post new Job
+        <span className="text-xl">+</span>
+        <span className="hidden md:inline ml-2">Post new Job</span>
       </button>
 
       <div className="flex flex-col flex-1">
-        <div className="mb-2">
+        <div className="mb-4">
           <Link
             href="/"
-            className="flex items-center text-yellow-500 mb-4"
+            className="flex items-center text-yellow-500 mb-4 justify-center md:justify-start"
           >
-            <Home size={20} className="mr-3" />
-            <span>Dashboard</span>
+            <Home size={20} className="min-w-[20px]" />
+            <span className="ml-3 hidden md:inline">Dashboard</span>
           </Link>
         </div>
 
-        <div className={openSections ? "mb-6" : "mb-2"}>
-          <button
+        <div className="mb-8">
+          <div
             onClick={() => toggleSection("jobManagement")}
-            className="w-full text-left flex items-center justify-between text-gray-400 text-sm mb-3"
+            className="w-full text-left flex items-center justify-between text-gray-400 text-sm mb-3 cursor-pointer"
           >
-            <span>JOB MANAGEMENT</span>
+            <span className="hidden md:inline">JOB MANAGEMENT</span>
             {openSections.jobManagement ? (
-              <ChevronUp size={16} />
+              <ChevronUp size={16} className="hidden md:block" />
             ) : (
-              <ChevronDown size={16} />
+              <ChevronDown size={16} className="hidden md:block" />
             )}
-          </button>
+          </div>
 
           {openSections.jobManagement && (
-            <div className="space-y-4">
+            <div className="space-y-5">
               <Link
                 href="/Listings"
-                className="flex items-center text-gray-600 hover:text-gray-900"
+                className="flex items-center text-gray-600 hover:text-gray-900 justify-center md:justify-start"
               >
-                <ClipboardList size={20} className="mr-3" />
-                <span>Job listings</span>
+                <ClipboardList size={20} className="min-w-[20px]" />
+                <span className="ml-3 hidden md:inline">Job listings</span>
               </Link>
               <Link
                 href="/applications"
-                className="flex items-center text-gray-600 hover:text-gray-900"
+                className="flex items-center text-gray-600 hover:text-gray-900 justify-center md:justify-start"
               >
-                <Users size={20} className="mr-3" />
-                <span>Applications</span>
-                <span className="ml-2 text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">
+                <Users size={20} className="min-w-[20px]" />
+                <span className="ml-3 hidden md:inline">Applications</span>
+                <span className="hidden md:inline ml-2 text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">
                   NEW
                 </span>
               </Link>
               <Link
                 href="/interviews"
-                className="flex items-center text-gray-600 hover:text-gray-900"
+                className="flex items-center text-gray-600 hover:text-gray-900 justify-center md:justify-start"
               >
-                <Video size={20} className="mr-3" />
-                <span>Interviews</span>
+                <Video size={20} className="min-w-[20px]" />
+                <span className="ml-3 hidden md:inline">Interviews</span>
               </Link>
               <Link
                 href="/shortlisted"
-                className="flex items-center text-gray-600 hover:text-gray-900"
+                className="flex items-center text-gray-600 hover:text-gray-900 justify-center md:justify-start"
               >
-                <UserCheck size={20} className="mr-3" />
-                <span>Shortlisted Candidates</span>
+                <UserCheck size={20} className="min-w-[20px]" />
+                <span className="ml-3 hidden md:inline">Shortlisted</span>
               </Link>
             </div>
           )}
         </div>
 
-        <div className="mb-6">
-          <button
+        <div className="mb-8">
+          <div
             onClick={() => toggleSection("candidates")}
-            className="w-full text-left flex items-center justify-between text-gray-400 text-sm mb-3"
+            className="w-full text-left flex items-center justify-between text-gray-400 text-sm mb-3 cursor-pointer"
           >
-            <span>CANDIDATES</span>
+            <span className="hidden md:inline">CANDIDATES</span>
             {openSections.candidates ? (
-              <ChevronUp size={16} />
+              <ChevronUp size={16} className="hidden md:block" />
             ) : (
-              <ChevronDown size={16} />
+              <ChevronDown size={16} className="hidden md:block" />
             )}
-          </button>
+          </div>
 
           {openSections.candidates && (
-            <div className="space-y-4">
+            <div className="space-y-5">
               <Link
                 href="/search"
-                className="flex items-center text-gray-600 hover:text-gray-900"
+                className="flex items-center text-gray-600 hover:text-gray-900 justify-center md:justify-start"
               >
-                <Search size={20} className="mr-3" />
-                <span>Search candidates</span>
+                <Search size={20} className="min-w-[20px]" />
+                <span className="ml-3 hidden md:inline">Search candidates</span>
               </Link>
               <Link
                 href="/followers"
-                className="flex items-center text-gray-600 hover:text-gray-900"
+                className="flex items-center text-gray-600 hover:text-gray-900 justify-center md:justify-start"
               >
-                <UserPlus size={20} className="mr-3" />
-                <span>Followers</span>
+                <UserPlus size={20} className="min-w-[20px]" />
+                <span className="ml-3 hidden md:inline">Followers</span>
               </Link>
             </div>
           )}
         </div>
 
         <div className="mb-6">
-          <button
+          <div
             onClick={() => toggleSection("company")}
-            className="w-full text-left flex items-center justify-between text-gray-400 text-sm mb-3"
+            className="w-full text-left flex items-center justify-between text-gray-400 text-sm mb-3 cursor-pointer"
           >
-            <span>COMPANY</span>
+            <span className="hidden md:inline">COMPANY</span>
             {openSections.company ? (
-              <ChevronUp size={16} />
+              <ChevronUp size={16} className="hidden md:block" />
             ) : (
-              <ChevronDown size={16} />
+              <ChevronDown size={16} className="hidden md:block" />
             )}
-          </button>
+          </div>
 
           {openSections.company && (
-            <div className="space-y-4">
+            <div className="space-y-5">
               <Link
                 href="/company-profile"
-                className="flex items-center text-gray-600 hover:text-gray-900"
+                className="flex items-center text-gray-600 hover:text-gray-900 justify-center md:justify-start"
               >
-                <Building2 size={20} className="mr-3" />
-                <span>Company profile</span>
+                <Building2 size={20} className="min-w-[20px]" />
+                <span className="ml-3 hidden md:inline">Company profile</span>
               </Link>
               <Link
                 href="/team"
-                className="flex items-center text-gray-600 hover:text-gray-900"
+                className="flex items-center text-gray-600 hover:text-gray-900 justify-center md:justify-start"
               >
-                <UsersRound size={20} className="mr-3" />
-                <span>Team Management</span>
+                <UsersRound size={20} className="min-w-[20px]" />
+                <span className="ml-3 hidden md:inline">Team Management</span>
               </Link>
               <Link
                 href="/settings"
-                className="flex items-center text-gray-600 hover:text-gray-900"
+                className="flex items-center text-gray-600 hover:text-gray-900 justify-center md:justify-start"
               >
-                <Settings size={20} className="mr-3" />
-                <span>Account settings</span>
+                <Settings size={20} className="min-w-[20px]" />
+                <span className="ml-3 hidden md:inline">Account settings</span>
               </Link>
             </div>
           )}
         </div>
 
-        <div className="mt-48 space-y-4">
+        <div className="mt-72 space-y-5">
           <Link
             href="/support"
-            className="flex items-center text-gray-600 hover:text-gray-900"
+            className="flex items-center text-gray-600 hover:text-gray-900 justify-center md:justify-start"
           >
-            <HeadphonesIcon size={20} className="mr-3" />
-            <span>Support</span>
+            <HeadphonesIcon size={20} className="min-w-[20px]" />
+            <span className="ml-3 hidden md:inline">Support</span>
           </Link>
           <Link
             href="/logout"
-            className="flex items-center text-red-500 hover:text-red-600"
+            className="flex items-center text-red-500 hover:text-red-600 justify-center md:justify-start"
           >
-            <LogOut size={20} className="mr-3" />
-            <span>Logout</span>
+            <LogOut size={20} className="min-w-[20px]" />
+            <span className="ml-3 hidden md:inline">Logout</span>
           </Link>
         </div>
       </div>
-    </div>
+    </aside>
   );
 };
 

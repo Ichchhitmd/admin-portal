@@ -1,10 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import "react-quill-new/dist/quill.snow.css";
-
-import dynamic from 'next/dynamic';
-const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
-
+import { Select } from 'antd';
+import QuillField from "../components/quillField";
 
 interface FormData {
   jobTitle: string;
@@ -23,81 +20,6 @@ interface FormData {
   qualifications: string;
   responsibility: string;
 }
-
-const QuillField = ({
-  value,
-  onChange,
-  name,
-  label,
-  placeholder,
-  required = false,
-}: {
-  value: string;
-  onChange: (name: string, value: string) => void;
-  name: string;
-  label: string;
-  placeholder: string;
-  required?: boolean;
-}) => {
-  const [wordCount, setWordCount] = useState(0);
-
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      // Font family dropdown
-      [{ font: ["Arial", "Times New Roman", "Helvetica", "sans-serif"] }],
-      // Text formatting
-      ["bold", "italic", "underline", "strike"],
-      // Text color and background color
-      [{ color: [] }, { background: [] }],
-      // Text alignment
-      [{ align: [] }],
-      // Lists and indentation
-      [{ list: "ordered" }, { list: "bullet" }],
-      // Link and image insertion
-      ["link", "image"],
-      // Remove formatting
-      ["clean"],
-    ],
-  };
-
-  const handleQuillChange = (content: string) => {
-    const text = content.replace(/<[^>]*>/g, "");
-    const words = text
-      .trim()
-      .split(/\s+/)
-      .filter((word) => word.length > 0);
-    setWordCount(words.length);
-    onChange(name, content);
-  };
-
-  return (
-    <div className="flex flex-col">
-      <div className="flex items-center gap-1">
-        {" "}
-        <label className="text-xs font-medium mb-2 leading-5">{label}</label>
-        {required && (
-          <div className="relative top-[-2px]">
-            <span className="text-[#FF0000] text-sm">*</span>
-          </div>
-        )}
-      </div>
-      <div className="bg-white rounded-lg overflow-hidden border flex flex-col">
-        <ReactQuill
-          theme="snow"
-          value={value}
-          onChange={(content) => handleQuillChange(content)}
-          modules={modules}
-          placeholder={placeholder}
-          className="custom-quill flex-1"
-        />
-        <div className="text-xs text-gray-500 border-t p-2">
-          {wordCount} words
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const JobPostingForm = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -133,6 +55,13 @@ const JobPostingForm = () => {
     }));
   };
 
+  const handleSelectChange = (name: string, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const handleQuillChange = (name: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -146,239 +75,242 @@ const JobPostingForm = () => {
   };
 
   return (
-    <div className="w-full bg-white p-5 rounded-md">
-      <h2 className="text-xl mb-6 text-[#DEAD00] font-semibold">Job Posting</h2>
-      <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-        <div className="grid grid-cols-4 gap-5">
-          <div className="col-span-2">
-            <label className="text-xs font-medium mb-2 block leading-5">
-              Job Title
-            </label>
-            <input
-              type="text"
-              name="jobTitle"
-              placeholder="Job Title"
-              value={formData.jobTitle}
-              onChange={handleChange}
-              className="w-full px-3 border h-12 rounded-lg bg-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs font-medium mb-2 block leading-5">
-              Industry
-            </label>
-            <select
-              name="industry"
-              value={formData.industry}
-              onChange={handleChange}
-              className="w-full appearance-none h-12 rounded-lg px-3 border bg-white text-gray-400"
-            >
-              <option value="">--Select--</option>
-              <option value="IT">IT</option>
-              <option value="Healthcare">Healthcare</option>
-            </select>
-          </div>
-          <div>
-            <label className="text-xs font-medium mb-2 block leading-5">
-              Job Level
-            </label>
-            <select
-              name="jobLevel"
-              value={formData.jobLevel}
-              onChange={handleChange}
-              className="w-full appearance-none h-12 rounded-lg px-3 border bg-white text-gray-400"
-            >
-              <option value="">--Select--</option>
-              <option value="Entry">Entry</option>
-              <option value="Mid">Mid</option>
-              <option value="Senior">Senior</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-4 gap-5">
-          <div>
-            <label className="text-xs font-medium mb-2 block leading-5">
-              Employment Type
-            </label>
-            <select
-              name="employmentType"
-              value={formData.employmentType}
-              onChange={handleChange}
-              className="w-full appearance-none h-12 px-3 border rounded-lg bg-white text-gray-400"
-            >
-              <option value="">--Select--</option>
-              <option value="Full-time">Full-time</option>
-              <option value="Part-time">Part-time</option>
-              <option value="Contract">Contract</option>
-            </select>
-          </div>
-          <div>
-            <label className="text-xs font-medium mb-2 block leading-5">
-              Location Type
-            </label>
-            <select
-              name="locationType"
-              value={formData.locationType}
-              onChange={handleChange}
-              className="w-full appearance-none h-12 px-3 border rounded-lg bg-white text-gray-400"
-            >
-              <option value="">--Select--</option>
-              <option value="Onsite">Onsite</option>
-              <option value="Remote">Remote</option>
-              <option value="Hybrid">Hybrid</option>
-            </select>
-          </div>
-          <div>
-            <label className="text-xs font-medium mb-2 block leading-5">
-              Minimum Salary
-            </label>
-            <input
-              type="number"
-              name="salaryMin"
-              placeholder="Minimum"
-              value={formData.salaryMin}
-              onChange={handleChange}
-              className="w-full h-12 px-3 border rounded-lg bg-white"
-            />
-            <div className="flex items-center gap-2 mt-2">
+    <div className="h-full overflow-y-auto px-4 md:px-6 lg:px-10">
+      <div className="w-full bg-white p-5 rounded-md">
+        <h2 className="text-xl mb-6 text-[#DEAD00] font-semibold">Job Posting</h2>
+        <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="col-span-1">
+              <label className="text-xs font-medium mb-2 block leading-5">
+                Job Title
+              </label>
               <input
-                type="checkbox"
-                name="negotiable"
-                checked={formData.negotiable}
+                type="text"
+                name="jobTitle"
+                placeholder="Job Title"
+                value={formData.jobTitle}
                 onChange={handleChange}
-                className="h-3 w-3"
+                className="w-full px-3 border h-12 rounded-lg bg-white"
               />
-              <label className="text-xs">Negotiable</label>
+            </div>
+            <div className="col-span-1">
+              <label className="text-xs font-medium mb-2 block leading-5">
+                Industry
+              </label>
+              <Select
+                value={formData.industry}
+                onChange={(value) => handleSelectChange('industry', value)}
+                placeholder="--Select--"
+                className="w-full h-12"
+                options={[
+                  { value: 'IT', label: 'IT' },
+                  { value: 'Healthcare', label: 'Healthcare' }
+                ]}
+              />
+            </div>
+            <div className="col-span-1">
+              <label className="text-xs font-medium mb-2 block leading-5">
+                Job Level
+              </label>
+              <Select
+                value={formData.jobLevel}
+                onChange={(value) => handleSelectChange('jobLevel', value)}
+                placeholder="--Select--"
+                className="w-full h-12"
+                options={[
+                  { value: 'Entry', label: 'Entry' },
+                  { value: 'Mid', label: 'Mid' },
+                  { value: 'Senior', label: 'Senior' }
+                ]}
+              />
             </div>
           </div>
-          <div>
-            <label className="text-xs font-medium mb-2 block leading-5">
-              Maximum Salary
-            </label>
-            <input
-              type="number"
-              name="salaryMax"
-              placeholder="Maximum"
-              value={formData.salaryMax}
-              onChange={handleChange}
-              className="w-full h-12 px-3 border rounded-lg bg-white"
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="col-span-1">
+              <label className="text-xs font-medium mb-2 block leading-5">
+                Employment Type
+              </label>
+              <Select
+                value={formData.employmentType}
+                onChange={(value) => handleSelectChange('employmentType', value)}
+                placeholder="--Select--"
+                className="w-full h-12"
+                options={[
+                  { value: 'Full-time', label: 'Full-time' },
+                  { value: 'Part-time', label: 'Part-time' },
+                  { value: 'Contract', label: 'Contract' }
+                ]}
+              />
+            </div>
+            <div className="col-span-1">
+              <label className="text-xs font-medium mb-2 block leading-5">
+                Location Type
+              </label>
+              <Select
+                value={formData.locationType}
+                onChange={(value) => handleSelectChange('locationType', value)}
+                placeholder="--Select--"
+                className="w-full h-12"
+                options={[
+                  { value: 'Onsite', label: 'Onsite' },
+                  { value: 'Remote', label: 'Remote' },
+                  { value: 'Hybrid', label: 'Hybrid' }
+                ]}
+              />
+            </div>
+            <div className="col-span-1">
+              <label className="text-xs font-medium mb-2 block leading-5">
+                Minimum Salary
+              </label>
+              <input
+                type="number"
+                name="salaryMin"
+                placeholder="Minimum"
+                value={formData.salaryMin}
+                onChange={handleChange}
+                className="w-full h-12 px-3 border rounded-lg bg-white"
+              />
+              <div className="flex items-center gap-2 mt-2">
+                <input
+                  type="checkbox"
+                  name="negotiable"
+                  checked={formData.negotiable}
+                  onChange={handleChange}
+                  className="h-3 w-3"
+                />
+                <label className="text-xs">Negotiable</label>
+              </div>
+            </div>
+            <div className="col-span-1">
+              <label className="text-xs font-medium mb-2 block leading-5">
+                Maximum Salary
+              </label>
+              <input
+                type="number"
+                name="salaryMax"
+                placeholder="Maximum"
+                value={formData.salaryMax}
+                onChange={handleChange}
+                className="w-full h-12 px-3 border rounded-lg bg-white"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="col-span-1">
+              <label className="text-xs font-medium mb-2 block leading-5">
+                Experience
+              </label>
+              <Select
+                value={formData.experience}
+                onChange={(value) => handleSelectChange('experience', value)}
+                placeholder="--Select--"
+                className="w-full h-12"
+                options={[
+                  { value: '0-1', label: '0-1 years' },
+                  { value: '1-3', label: '1-3 years' },
+                  { value: '3-5', label: '3-5 years' },
+                  { value: '5+', label: '5+ years' }
+                ]}
+              />
+            </div>
+            <div className="col-span-1">
+              <label className="text-xs font-medium mb-2 block leading-5">
+                Number of Hiring
+              </label>
+              <input
+                type="number"
+                name="numberOfHiring"
+                placeholder="Number of Hiring"
+                value={formData.numberOfHiring}
+                onChange={handleChange}
+                className="w-full h-12 px-3 border rounded-lg bg-white"
+              />
+            </div>
+            <div className="col-span-1">
+              <label className="text-xs font-medium mb-2 block leading-5">
+                Deadline
+              </label>
+              <input
+                type="date"
+                name="deadline"
+                value={formData.deadline}
+                onChange={handleChange}
+                className="w-full h-12 px-3 border rounded-lg bg-white"
+              />
+            </div>
+            <div className="col-span-1">
+              <label className="text-xs font-medium mb-2 block leading-5">
+                Hiring Urgency
+              </label>
+              <Select
+                value={formData.hiringUrgency}
+                onChange={(value) => handleSelectChange('hiringUrgency', value)}
+                placeholder="--Select--"
+                className="w-full h-12"
+                options={[
+                  { value: 'Low', label: 'Low' },
+                  { value: 'Medium', label: 'Medium' },
+                  { value: 'High', label: 'High' }
+                ]}
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-10">
+            <QuillField
+              name="jobDescription"
+              value={formData.jobDescription}
+              onChange={handleQuillChange}
+              label="Job Description"
+              placeholder="Job Description"
+              required
+            />
+
+            <QuillField
+              name="qualifications"
+              value={formData.qualifications}
+              onChange={handleQuillChange}
+              label="Qualifications"
+              placeholder="Qualifications/Requirements"
+              required
+            />
+
+            <QuillField
+              name="responsibility"
+              value={formData.responsibility}
+              onChange={handleQuillChange}
+              label="Responsibilities"
+              placeholder="Responsibilities"
+              required
             />
           </div>
-        </div>
 
-        <div className="grid grid-cols-4 gap-5">
-          <div>
-            <label className="text-xs font-medium mb-2 block leading-5">
-              Experience
-            </label>
-            <select
-              name="experience"
-              value={formData.experience}
-              onChange={handleChange}
-              className="w-full h-12 appearance-none px-3 border rounded-lg bg-white text-gray-400"
+          <div className="flex gap-5 mt-5 flex-col sm:flex-row">
+            <button type="submit" className="bg-teal-500 text-white px-8 py-2 w-full sm:w-auto">
+              Post
+            </button>
+            <button
+              type="button"
+              className="border border-teal-500 text-teal-500 px-8 py-2 w-full sm:w-auto"
             >
-              <option value="">--Select--</option>
-              <option value="0-1">0-1 years</option>
-              <option value="1-3">1-3 years</option>
-              <option value="3-5">3-5 years</option>
-              <option value="5+">5+ years</option>
-            </select>
+              Save as draft
+            </button>
           </div>
-          <div>
-            <label className="text-xs font-medium mb-2 block leading-5">
-              Number of Hiring
-            </label>
-            <input
-              type="number"
-              name="numberOfHiring"
-              placeholder="Number of Hiring"
-              value={formData.numberOfHiring}
-              onChange={handleChange}
-              className="w-full h-12 px-3 border rounded-lg bg-white"
-            />
+          <div className="text-xs mt-5 font-normal flex justify-center items-center">
+            Need help? Reach out anytime at
+            <span className="ml-1">
+              <a
+                href="mailto:contact@hrxplor.com"
+                className="text-blue-500 hover:underline"
+              >
+                contact@hrxplor.com
+              </a>
+            </span>
           </div>
-          <div>
-            <label className="text-xs font-medium mb-2 block leading-5">
-              Deadline
-            </label>
-            <input
-              type="date"
-              name="deadline"
-              value={formData.deadline}
-              onChange={handleChange}
-              className="w-full h-12 px-3 border rounded-lg bg-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs font-medium mb-2 block leading-5">
-              Hiring Urgency
-            </label>
-            <select
-              name="hiringUrgency"
-              value={formData.hiringUrgency}
-              onChange={handleChange}
-              className="w-full h-12 appearance-none px-3 border rounded-lg bg-white text-gray-400"
-            >
-              <option value="">--Select--</option>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-            </select>
-          </div>
-        </div>
-        <div className="flex flex-col gap-10">
-          <QuillField
-            name="jobDescription"
-            value={formData.jobDescription}
-            onChange={handleQuillChange}
-            label="Job Description"
-            placeholder="Job Description"
-            required
-          />
-
-          <QuillField
-            name="qualifications"
-            value={formData.qualifications}
-            onChange={handleQuillChange}
-            label="Qualifications"
-            placeholder="Qualifications/Requirements"
-            required
-          />
-
-          <QuillField
-            name="responsibility"
-            value={formData.responsibility}
-            onChange={handleQuillChange}
-            label="Responsibilities"
-            placeholder="Responsibilities"
-            required
-          />
-        </div>
-
-        <div className="flex gap-5 mt-5">
-          <button type="submit" className="bg-teal-500 text-white px-8 py-2">
-            Post
-          </button>
-          <button
-            type="button"
-            className="border border-teal-500 text-teal-500 px-8 py-2"
-          >
-            Save as draft
-          </button>
-        </div>
-        <div className="text-xs mt-5 font-normal flex justify-center items-center">
-          Need help? Reach out anytime at
-          <span className="ml-1">
-            <a
-              href="mailto:contact@hrxplor.com"
-              className="text-blue-500 hover:underline"
-            >
-              contact@hrxplor.com
-            </a>
-          </span>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };

@@ -16,3 +16,26 @@
     border-bottom: 0.7px solid #E1E1E2 !important;
     
   }
+
+  /* Scrollbar visibility on scroll */
+.scrollbar-visible {
+  scrollbar-width: thin; /* Firefox support */
+}
+
+.scrollbar-visible::-webkit-scrollbar {
+  width: 4px; /* Thin scrollbar */
+  height: 4px; /* For horizontal scrollbar */
+  background: transparent; /* Track background */
+}
+
+.scrollbar-visible::-webkit-scrollbar-thumb {
+  background-color: #888; /* Thumb color */
+  border-radius: 9999px;
+  transition: opacity 0.3s; /* Smooth fade-in/out */
+  opacity: 0; /* Hidden by default */
+}
+
+.scrollbar-visible:hover::-webkit-scrollbar-thumb,
+.scrollbar-visible:active::-webkit-scrollbar-thumb {
+  opacity: 1; /* Fully visible when interacting */
+}
