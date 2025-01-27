@@ -75,7 +75,7 @@ const JobPostingForm = () => {
   };
 
   return (
-    <div className="h-full overflow-y-auto px-4 md:px-6 lg:px-10 mt-4">
+    <div className="h-full px-4 md:px-6 lg:px-10 mt-4 my-3 md:my-6">
       <div className="w-full bg-white p-5 rounded-md">
         <h2 className="text-xl mb-6 text-[#DEAD00] font-semibold">
           Job Posting
@@ -89,7 +89,7 @@ const JobPostingForm = () => {
               <input
                 type="text"
                 name="jobTitle"
-                placeholder="Job Title"
+                placeholder="Enter job title e.g. Senior Software Engineer"
                 value={formData.jobTitle}
                 onChange={handleChange}
                 required
@@ -101,15 +101,14 @@ const JobPostingForm = () => {
                 Industry <span className="text-red-500 ">*</span>
               </label>
               <Select
-                value={formData.industry}
                 onChange={(value) => handleSelectChange("industry", value)}
-                placeholder="--Select--"
+                placeholder="Select industry type"
                 className="w-full h-12"
                 options={[
                   { value: "IT", label: "IT" },
                   { value: "Healthcare", label: "Healthcare" },
                 ]}
-                aria-required
+                value={formData.industry || undefined}
               />
             </div>
             <div className="">
@@ -117,16 +116,15 @@ const JobPostingForm = () => {
                 Job Level <span className="text-red-500 ">*</span>
               </label>
               <Select
-                value={formData.jobLevel}
                 onChange={(value) => handleSelectChange("jobLevel", value)}
-                placeholder="--Select--"
+                placeholder="Select job level"
                 className="w-full h-12"
                 options={[
                   { value: "Entry", label: "Entry" },
                   { value: "Mid", label: "Mid" },
                   { value: "Senior", label: "Senior" },
                 ]}
-                aria-required
+                value={formData.jobLevel || undefined}
               />
             </div>
             <div className="">
@@ -134,18 +132,17 @@ const JobPostingForm = () => {
                 Employment Type <span className="text-red-500">*</span>
               </label>
               <Select
-                value={formData.employmentType}
                 onChange={(value) =>
                   handleSelectChange("employmentType", value)
                 }
-                placeholder="--Select--"
+                placeholder="Select employment type"
                 className="w-full h-12"
                 options={[
                   { value: "Full-time", label: "Full-time" },
                   { value: "Part-time", label: "Part-time" },
                   { value: "Contract", label: "Contract" },
                 ]}
-                aria-required
+                value={formData.employmentType || undefined}
               />
             </div>
           </div>
@@ -156,16 +153,15 @@ const JobPostingForm = () => {
                 Location Type <span className="text-red-500">*</span>
               </label>
               <Select
-                value={formData.locationType}
                 onChange={(value) => handleSelectChange("locationType", value)}
-                placeholder="--Select--"
+                placeholder="Select location type"
                 className="w-full h-12"
                 options={[
                   { value: "Onsite", label: "Onsite" },
                   { value: "Remote", label: "Remote" },
                   { value: "Hybrid", label: "Hybrid" },
                 ]}
-                aria-required
+                value={formData.locationType || undefined}
               />
             </div>
             <div className="col-span-1">
@@ -175,7 +171,7 @@ const JobPostingForm = () => {
               <input
                 type="number"
                 name="salaryMin"
-                placeholder="Minimum"
+                placeholder="Min salary"
                 value={formData.salaryMin}
                 onChange={handleChange}
                 required
@@ -196,7 +192,7 @@ const JobPostingForm = () => {
               <input
                 type="number"
                 name="salaryMax"
-                placeholder="Maximum"
+                placeholder="Max salary"
                 required
                 value={formData.salaryMax}
                 onChange={handleChange}
@@ -211,26 +207,26 @@ const JobPostingForm = () => {
                 Number of Hiring <span className="text-red-500">*</span>
               </label>
               <Select
-                value={formData.numberOfHiring}
                 onChange={(value) =>
                   handleSelectChange("numberOfHiring", value)
                 }
-                placeholder="--Select--"
+                placeholder="Select number of positions"
                 className="w-full h-12"
                 options={Array.from({ length: 30 }, (_, i) => ({
                   value: (i + 1).toString(),
                   label: (i + 1).toString(),
                 }))}
-                aria-required
+                value={formData.numberOfHiring || undefined}
               />
             </div>
             <div className="col-span-1">
               <label className="text-xs font-medium mb-2 block leading-5">
-                Hiring Urgency
+                Deadline
               </label>
               <input
                 type="date"
                 name="deadline"
+                placeholder="Select deadline"
                 value={formData.deadline}
                 onChange={handleChange}
                 className="w-full h-12 px-3 border rounded-lg bg-white"
@@ -241,15 +237,15 @@ const JobPostingForm = () => {
                 Hiring Urgency
               </label>
               <Select
-                value={formData.hiringUrgency}
                 onChange={(value) => handleSelectChange("hiringUrgency", value)}
-                placeholder="--Select--"
+                placeholder="Select urgency level"
                 className="w-full h-12"
                 options={[
                   { value: "Low", label: "Low" },
                   { value: "Medium", label: "Medium" },
                   { value: "High", label: "High" },
                 ]}
+                value={formData.hiringUrgency || undefined}
               />
             </div>
           </div>
@@ -260,7 +256,7 @@ const JobPostingForm = () => {
               value={formData.jobDescription}
               onChange={handleQuillChange}
               label="Job Description"
-              placeholder="Job Description"
+              placeholder="Enter detailed job description including role overview, responsibilities, and expectations"
               required
             />
 
@@ -269,7 +265,7 @@ const JobPostingForm = () => {
               value={formData.qualifications}
               onChange={handleQuillChange}
               label="Job Requirements"
-              placeholder="Qualifications/Requirements"
+              placeholder="Enter required qualifications, skills, and experience"
               required
             />
           </div>
@@ -293,7 +289,6 @@ const JobPostingForm = () => {
               </a>
             </span>
           </div>
-          
         </form>
       </div>
     </div>

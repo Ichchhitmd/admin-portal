@@ -12,13 +12,13 @@ import {
   Building2,
   UsersRound,
   Settings,
-  HeadphonesIcon,
   LogOut,
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import UserSupportCard from "../userSupportCard";
 
 const Sidebar = () => {
   const router = useRouter();
@@ -36,7 +36,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="h-full bg-white border-r border-gray-200 flex flex-col overflow-y-auto scrollbar-visible w-16 md:w-64 p-2 md:p-4">
+    <aside className="h-full bg-white border-r border-gray-200 flex flex-col w-16 md:w-72 p-2 md:p-4">
       <button
         className="w-full bg-[#0295A9] text-white rounded-md py-2 px-2 md:px-4 flex items-center justify-center mb-8"
         onClick={() => router.push("/Posting")}
@@ -45,7 +45,7 @@ const Sidebar = () => {
         <span className="hidden md:inline ml-2">Post new Job</span>
       </button>
 
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1 overflow-y-auto">
         <div className="mb-4">
           <Link
             href="/"
@@ -178,23 +178,17 @@ const Sidebar = () => {
             </div>
           )}
         </div>
+      </div>
 
-        <div className="mt-72 space-y-5">
-          <Link
-            href="/support"
-            className="flex items-center text-gray-600 hover:text-gray-900 justify-center md:justify-start"
-          >
-            <HeadphonesIcon size={20} className="min-w-[20px]" />
-            <span className="ml-3 hidden md:inline">Support</span>
-          </Link>
-          <Link
-            href="/logout"
-            className="flex items-center text-red-500 hover:text-red-600 justify-center md:justify-start"
-          >
-            <LogOut size={20} className="min-w-[20px]" />
-            <span className="ml-3 hidden md:inline">Logout</span>
-          </Link>
-        </div>
+      <div className="mt-6 space-y-5">
+        <UserSupportCard />
+        <Link
+          href="/logout"
+          className="flex items-center text-red-500 hover:text-red-600 justify-center md:justify-start"
+        >
+          <LogOut size={20} className="min-w-[20px]" />
+          <span className="ml-3 hidden md:inline">Logout</span>
+        </Link>
       </div>
     </aside>
   );
