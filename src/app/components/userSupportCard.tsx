@@ -8,8 +8,8 @@ const UserSupportCard = () => {
         <Image
           src="/image-1.png"
           alt="User support illustration"
-          layout="fill"
           className="rounded-md object-cover"
+          fill
         />
       </div>
       <div>

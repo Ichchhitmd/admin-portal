@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "801054465512",
+    "project_id": "xito-203e6",
+    "storage_bucket": "xito-203e6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801054465512:android:2f7f829fc15f87ad53d85d",
+        "android_client_info": {
+          "package_name": "com.xito.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkIQ4p4bV47yC4wxv9tGcWUkPkChClnQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

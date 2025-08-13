@@ -1,0 +1,49 @@
+{
+  "jobs": [
+    {
+      "id": 1,
+      "title": "UI UX Designer",
+      "applicationsCount": 5,
+      "status": "expired",
+      "isActive": true,
+      "postedDate": "15th March, 2024",
+      "expiryDate": "15th March, 2024"
+    },
+    {
+      "id": 2,
+      "title": "Frontend Developer",
+      "applicationsCount": 3,
+      "status": "active",
+      "isActive": false,
+      "postedDate": "15th March, 2024",
+      "expiryDate": "15th March, 2024"
+    },
+    {
+      "id": 3,
+      "title": "Backend Developer",
+      "applicationsCount": 0,
+      "status": "active",
+      "isActive": true,
+      "postedDate": "15th March, 2024",
+      "expiryDate": "15th March, 2024"
+    },
+    {
+      "id": 4,
+      "title": "Backend Developer",
+      "applicationsCount": 0,
+      "status": "active",
+      "isActive": true,
+      "postedDate": "15th March, 2024",
+      "expiryDate": "15th March, 2024"
+    },
+    {
+      "id": 5,
+      "title": "Backend Developer",
+      "applicationsCount": 0,
+      "status": "active",
+      "isActive": true,
+      "postedDate": "15th March, 2024",
+      "expiryDate": "15th March, 2024"
+    }
+  ]
+}
